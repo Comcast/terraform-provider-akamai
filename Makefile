@@ -24,7 +24,7 @@ install:
 	cd bin/${NAME} \
 		&& go install
 
-build:
+build: updatedeps
 	cd bin/${NAME} \
 		&& rm -rf build \
 		&& gox -ldflags "-X main.version=${VERSION}" \
