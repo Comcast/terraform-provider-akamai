@@ -61,8 +61,12 @@ cited in your `.tf file`. If undesired, this destructive action can be avoided b
 
 ### Acceptance Tests
 
+Acceptance tests require Akamai credentials authorized to perform CRUD actions against the `golangtest.akadns.net` GTM domain.
+
+Establish the required `AKAMAI_EDGEGRID_*` environment variables and execute the tests:
+
 ```
-TF_ACC=1 go test -v
+make test
 ```
 
 ## Releasing new versons
