@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Comcast/terraform-provider-akamai.svg?branch=master)](https://travis-ci.org/Comcast/terraform-provider-akamai)
+
 # terraform-provider-akamai
 
 An Akamai provider for HashiCorp [Terraform](http://terraform.io).
