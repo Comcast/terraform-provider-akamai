@@ -42,13 +42,14 @@ package:
 
 release: package
 	github-release release \
-		-u Comcast -r ${NAME} \
-		-c $(shell git rev-parse --abbrev-ref HEAD) \
+		--user Comcast \
+		--repo ${NAME} \
+		--target $(shell git rev-parse --abbrev-ref HEAD) \
 		--tag ${VERSION} \
 		--name "Release: ${VERSION}"
 	ls release/*.tgz | xargs -I FILE github-release upload \
-		-u Comcast \
-		-r ${NAME} \
+		--user Comcast \
+		--repo ${NAME} \
 		--tag ${VERSION} \
 		--name FILE \
 		--file FILE
