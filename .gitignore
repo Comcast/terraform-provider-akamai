@@ -1,2 +1,3 @@
 release
 bin/terraform-provider-akamai/build
+vendor/github.com

@@ -9,7 +9,8 @@ updatedeps:
 	fi
 	go get -u github.com/mitchellh/gox
 	go get -u github.com/aktau/github-release
-	go get
+	go get -u github.com/kardianos/govendor
+	govendor sync
 
 test:
 	go test $(TEST) -cover
