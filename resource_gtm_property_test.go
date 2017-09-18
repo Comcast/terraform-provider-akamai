@@ -102,6 +102,20 @@ resource "akamai_gtm_data_center" "property_test_dc2" {
 	]
 }
 
+resource "akamai_gtm_data_center" "property_test_dc3" {
+	name = "property_test_dc3"
+	domain = "${var.test_domain}"
+	country = "US"
+	continent = "NA"
+	city = "Philadelphia"
+	longitude = -23.776
+	latitude = 64.808
+	cloud_server_targeting = true
+	depends_on = [
+		"akamai_gtm_data_center.property_test_dc2"
+	]
+}
+
 resource "akamai_gtm_property" "test_property" {
 	cname = "example.com"
 	domain = "${var.test_domain}"
@@ -122,18 +136,18 @@ resource "akamai_gtm_property" "test_property" {
 	stickiness_bonus_percentage = 50
 	stickiness_bonus_constant = 0
 	use_computed_targets = false
-  liveness_test {
-    name = "terraform-provider-akamai automated acceptance tests"
-    test_object = "/status"
-    test_object_protocol = "HTTP"
-    test_interval = 60
-    disable_nonstandard_port_warning = false
-    http_error_4xx = true
-    http_error_3xx = true
-    http_error_5xx = true
-    test_object_port = 80
-    test_timeout = 25
-  }
+	liveness_test {
+		name = "terraform-provider-akamai automated acceptance tests"
+		test_object = "/status"
+		test_object_protocol = "HTTP"
+		test_interval = 60
+		disable_nonstandard_port_warning = false
+		http_error_4xx = true
+		http_error_3xx = true
+		http_error_5xx = true
+		test_object_port = 80
+		test_timeout = 25
+	}
 	traffic_target {
 		enabled = true
 		data_center_id = "${akamai_gtm_data_center.property_test_dc1.id}"
@@ -147,12 +161,17 @@ resource "akamai_gtm_property" "test_property" {
 	traffic_target {
 		enabled = true
 		data_center_id = "${akamai_gtm_data_center.property_test_dc2.id}"
-		weight = 50.0
+		weight = 25.0
 		name = "${akamai_gtm_data_center.property_test_dc2.name}"
-		servers = [
-			"1.2.3.6",
-			"1.2.3.7"
-		]
+		handout_cname = "www.google.com"
+	}
+	traffic_target {
+		enabled = true
+		data_center_id = "${akamai_gtm_data_center.property_test_dc3.id}"
+		weight = 25.0
+		name = "${akamai_gtm_data_center.property_test_dc3.name}"
+		handout_cname = "www.comcast.com"
+		servers = ["www.comcast.com"]
 	}
 }
 `
