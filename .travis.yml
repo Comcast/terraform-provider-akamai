@@ -17,7 +17,7 @@ deploy:
   skip_cleanup: true
   on:
     repo: Comcast/terraform-provider-akamai
-    tags: true
+    branch: master
 
 notifications:
   email:
