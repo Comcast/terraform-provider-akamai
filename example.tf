@@ -18,16 +18,31 @@ resource "akamai_gtm_data_center" "property_test_dc1" {
 }
 
 resource "akamai_gtm_data_center" "property_test_dc2" {
-  name      = "property_test_dc2"
-  domain    = "${akamai_gtm_domain.property_test_domain.name}"
-  country   = "IS"
-  continent = "EU"
-  city      = "Snæfellsjökull"
-  longitude = -23.776
-  latitude  = 64.808
+  name                   = "property_test_dc2"
+  domain                 = "${akamai_gtm_domain.property_test_domain.name}"
+  country                = "IS"
+  continent              = "EU"
+  city                   = "Snæfellsjökull"
+  longitude              = -23.776
+  latitude               = 64.808
 
   depends_on = [
     "akamai_gtm_data_center.property_test_dc1",
+  ]
+}
+
+resource "akamai_gtm_data_center" "property_test_dc3" {
+  name                   = "property_test_dc3"
+  domain                 = "${akamai_gtm_domain.property_test_domain.name}"
+  country                = "US"
+  continent              = "NA"
+  city                   = "Philadelphia"
+  longitude              = -75.167
+  latitude               = 39.95
+  cloud_server_targeting = true
+
+  depends_on = [
+    "akamai_gtm_data_center.property_test_dc2",
   ]
 }
 
@@ -79,12 +94,20 @@ resource "akamai_gtm_property" "test_property" {
   traffic_target {
     enabled        = true
     data_center_id = "${akamai_gtm_data_center.property_test_dc2.id}"
-    weight         = 50.0
+    weight         = 25.0
     name           = "${akamai_gtm_data_center.property_test_dc2.name}"
+    handout_cname  = "www.google.com"
+  }
 
-    servers = [
-      "1.2.3.6",
-      "1.2.3.7",
-    ]
+  traffic_target {
+    enabled        = true
+    data_center_id = "${akamai_gtm_data_center.property_test_dc3.id}"
+    weight         = 25.0
+    name           = "${akamai_gtm_data_center.property_test_dc3.name}"
+    handout_cname  = "www.comcast.com"
+
+    # specifying `servers` enables liveness tests for `handout_cname` and is
+    # required in conjunction with `cloud_server_targeting` on data centers.
+    servers = ["www.comcast.com"]
   }
 }

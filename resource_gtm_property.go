@@ -192,11 +192,15 @@ func resourceAkamaiGTMProperty() *schema.Resource {
 						},
 						"servers": &schema.Schema{
 							Type:     schema.TypeSet,
-							Required: true,
+							Optional: true,
 							Elem:     &schema.Schema{Type: schema.TypeString},
 							Set: func(v interface{}) int {
 								return hashcode.String(v.(string))
 							},
+						},
+						"handout_cname": &schema.Schema{
+							Type:     schema.TypeString,
+							Optional: true,
 						},
 					},
 				},
@@ -299,6 +303,7 @@ func trafficTargets(d *schema.ResourceData) []edgegrid.TrafficTarget {
 			Enabled:      d.Get(prefix + ".enabled").(bool),
 			Servers:      stringSetToStringSlice(d.Get(prefix + ".servers").(*schema.Set)),
 			DataCenterID: d.Get(prefix + ".data_center_id").(int),
+			HandoutCname: d.Get(prefix + ".handout_cname").(string),
 		})
 	}
 
