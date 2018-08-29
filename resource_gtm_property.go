@@ -328,6 +328,8 @@ func livenessTests(d *schema.ResourceData) []edgegrid.LivenessTest {
 			TestObject:                    d.Get(prefix + ".test_object").(string),
 			TestObjectProtocol:            d.Get(prefix + ".test_object_protocol").(string),
 			DisableNonstandardPortWarning: d.Get(prefix + ".disable_nonstandard_port_warning").(bool),
+			TestObjectUsername:            d.Get(prefix + ".test_object_username").(string),
+			TestObjectPassword:            d.Get(prefix + ".test_object_password").(string),
 		})
 	}
 
