@@ -71,11 +71,9 @@ make test
 
 ## Releasing new versons
 
-`terraform-provider-akamai` releases are automatically published to [GitHub](https://github.com/Comcast/terraform-provider-akamai/releases)
-via [TravisCI](https://travis-ci.org/Comcast/terraform-provider-akamai) each time a new git tag is pushed to GitHub.
-
 To publish a new `terraform-provider-akamai` release from your git repository's `HEAD`...
 
 1. establish a `GITHUB_TOKEN` env variable: `export GITHUB_TOKEN=YOUR_ACCESS_TOKEN`
 1. edit `Makefile`'s `VERSION` variable to the appropriate semantic version
-1. execute `make release`
+1. execute `make build` to build the release artifacts
+1. execute `make release` to publish the release artifacts to GitHub

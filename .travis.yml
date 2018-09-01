@@ -4,20 +4,8 @@ go:
   - 1.8
   - tip
 
-env:
-  global:
-    - secure: "Ez0PzgW1uUBu1o9tZRCsLvUiAuW28+TRx5MtC/aIxD62rHGGftSs0uNUMZeUFm1i/d9LJdSah2C6Nkz1CYdkd7qgytUF3er/PiHszQrHOfdBwECfF47imX5srCLgFkyC8ZcgLCC9sMSI89b8haeoliQKvp9oHb8PMrdOLQDAPnw+bEoD8tnobeudObx4iEEHwsinFEF0+qyCoQVvf1cXz2UMlng/VzPxJCGlUwzmbliP2Hk57OIJe2TH+HcAbr+GSVu7rLi8Yr1oVUcUnPninubyBExJfyUVK6B/YXOyOQyQg5sDcZWoyaK/RoXq9zlaPHpVX/zkDpgfVzFT1j/4/h0rBITy8D3wL8abHvivgZyKPPOK3KzB43ZlURgUTAausiSnPh9Q9hvSNjFsQ6mz13FV2iuCrtRpr19rHJsWcoTAHniDQM+EQO+M4LFIsQsAyJTGDJQM2yoH8S17i5pzDVEG3rEP76Z3ocpteDULIATyPTHvhRyI/jnMbok4bPtIqfoRFmorvz1l75g0hVVxEEIhpTidiTrjaqKYGH8QFDVACrHDoIAuN1n/wQmxOwMsvASfBce+T8JzNSMlV+dQWVfsf690euN6Y+VTSMhZfG4M6mM18/FjZkTZKO5shU2aerOn6E074q887mMGUn7RyppKkbKJPKhvHYCLKjQHRtg="
-
 script:
   - make build
-
-deploy:
-  provider: script
-  script: make release
-  skip_cleanup: true
-  on:
-    repo: Comcast/terraform-provider-akamai
-    branch: master
 
 notifications:
   email:
